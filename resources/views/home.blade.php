@@ -109,8 +109,11 @@
                                                 <div class="single-product">
                                                     <div class="product-img">
                                                         <a href="product-details.html">
-                                                            <img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-                                                            <img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">
+                                                            @php
+                                                               $product_image = image_crop(storage_path('storage/images/images'.$product->image), 550, 750 ) 
+                                                            @endphp
+                                                            <img class="default-img" src={{ $product->image ==' ' ? 'https://via.placeholder.com/550x750': asset($product_image) }} alt="#">
+                                                            <img class="hover-img" src={{ $product->image ==' ' ? 'https://via.placeholder.com/550x750': asset($product_image) }} alt="#">
                                                         </a>
                                                         <div class="button-head">
                                                             <div class="product-action">

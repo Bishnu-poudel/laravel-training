@@ -12,7 +12,7 @@
             </div>
          @endif
             <h2>Create Product</h2>
-                <form action="/admin/products/store" method="POST">
+                <form action="/admin/products/store" method="POST" enctype="multipart/form-data">
                     @csrf
                     {{-- <x-forms.input type="text" name="full_name"/> --}}
                     Product Name: <input type="text" name="product_name" id="" class="form-control" value="{{ old('product_name') }}"
@@ -34,6 +34,7 @@
                                 <option value="{{ $category->id }}"{{ $category->id == old('category_id') ? "selected" : ''}}>{{$category->name }}</option>
                             @endforeach  
                         </x-forms.select><br><br>
+                        <input type="file" name="image_upload" id=""><br><br>
                             {{-- <select name="category_id" id="">
                                 <option value="0"> Select a category</option> 
                                     @foreach ($categories as $category)

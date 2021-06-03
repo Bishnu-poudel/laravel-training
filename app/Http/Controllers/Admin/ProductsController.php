@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use Intervention\Image\Facades\Image;
 
 class ProductsController extends Controller
 {
@@ -48,13 +49,23 @@ class ProductsController extends Controller
         [
             'required' => '  :attribute field is required.',
         ]
-    );
+        );
+        
 
         $product = new Product;
         $product->product_name = $request->input('product_name');
         $product->product_desc = $request->input('product_desc');
         $product->price = $request->input('price');
         $product->category_id = $request->input('category_id');
+        if ($request->hasFile('image_upload')) {
+            $name = $request->file('image_upload')->getClientOriginalName();
+            $request->file('image_upload')->storeAs('public/images' , $name);
+            // $image_resize = Image::make(storage_path().'public/images/'.$name);
+            // $image_resize->fit(550,750);
+            // $image_resize->save(public_path('images/thumbnail/' .$name));
+            $product->image = $name;
+
+        }
         if($product->save())
         {
             return redirect()->route('products_list');
